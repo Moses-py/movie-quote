@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-
-function App() {
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GameLandingScreen } from './container/GameLanding/GameLandingScreen';
+import { GameScreen } from './container/GameScreen/GameScreen';
+import { GameContextProvider } from './context/GameContext';
+export const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<GameLandingScreen />} />
+          <Route path="play" element = {
+            <GameContextProvider>
+              <GameScreen />
+            </GameContextProvider>
+          } />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default App;
