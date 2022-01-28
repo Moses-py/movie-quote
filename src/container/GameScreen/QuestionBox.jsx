@@ -7,7 +7,7 @@ export const QuestionBox = () => {
   return <>
     <div className='questionBoxContainer'>
         <div className='questionBox'>
-            <p> <span>"</span> {getQuote[0].quote} <span>"</span></p>
+            <p>"{getQuote[0].quote}"</p>
         </div>
     </div>
   </>;

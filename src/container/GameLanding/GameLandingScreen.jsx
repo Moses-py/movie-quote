@@ -10,7 +10,7 @@ export const GameLandingScreen = () => {
             <h1>Movie Quotes</h1>
           <div className='playButton'>
             <button className='startButton'>
-              <Link to="/play"  style={{ textDecoration: 'none' }}>Start Game</Link>
+              <Link to="/play" style={{ textDecoration: 'none' }}>Start Game</Link>
             </button>
           </div>
         </div>

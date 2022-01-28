@@ -1,43 +1,54 @@
 import React, {useState, useEffect} from "react";
 import movieQuote from "popular-movie-quotes"
-
 const GameContext = React.createContext({
     getQuote: () => {},
     answer: () => {},
-    isCorrect: ""
+    isCorrect: "",
+    changeQuote: () => {},
+    score: "",
+    strike: "",
 })
 
 export default GameContext
 
 export const GameContextProvider = ({children}) => {
-    const [randomQuote, setRandomQuote] = useState(movieQuote.getSomeRandom(4))
-    const [validateAnswer, setValidateAnswer] = useState({})
+    const getMovie = () => movieQuote.getSomeRandom(4)
+    const [randomQuote, setRandomQuote] = useState(getMovie())
+    const [score, setScore] = useState(0);
+    const [strike, setStrike] = useState(0);
+    const [gameOver, setGameOver] = useState(false)
 
     useEffect(()=> {
-        setRandomQuote(movieQuote.getSomeRandom(4))
+        setRandomQuote(getMovie())
     }, [])
+
 
     const checkAnswer = (key) => {
         key = key.replace(/\s+/g, '');
         let quoteAnswer = randomQuote[0].movie.replace(/\s+/g, '')
 
         if(quoteAnswer === key) {
-            setValidateAnswer({
-                status: true,
-                key
-            })
+            setScore((prev) => prev + 1)
+            return true
         }else {
-            setValidateAnswer({
-                status: false,
-                key
-            })
+            setStrike(prev => prev + 1)
+            strike > 2 && setGameOver(true)
+            return false
         }
     }
+
+    const changeQuote = () => setRandomQuote(getMovie())
+
+    const updateGameStatus = () => setGameOver(false)
 
     const values = {
         getQuote: randomQuote,
         answer: checkAnswer,
-        isCorrect: validateAnswer
+        score,
+        strike,
+        gameOver,
+        updateGameStatus,
+        changeQuote
     }
   
     return <GameContext.Provider value={values}>
