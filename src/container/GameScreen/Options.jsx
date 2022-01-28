@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import GameContext from '../../context/GameContext';
 export const Options = () => {
+  
   const {getQuote, answer, changeQuote} = useContext(GameContext)
 
   const resolveAnswer = (e) => {
